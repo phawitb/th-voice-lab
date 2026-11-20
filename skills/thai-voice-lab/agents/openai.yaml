@@ -1,0 +1,5 @@
+interface:
+  display_name: "Thai Voice Lab"
+  short_description: "สร้างเสียงภาษาไทยด้วย VoxCPM2 บนเครื่องของคุณ"
+  brand_color: "#2563EB"
+  default_prompt: "ใช้ $thai-voice-lab สร้างเสียงภาษาไทยจากข้อความนี้และบันทึกเป็นไฟล์ WAV บนเครื่อง"

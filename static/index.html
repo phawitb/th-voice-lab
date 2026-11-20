@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8fafc"><meta name="description" content="สตูดิโอสร้างเสียงภาษาไทยด้วย VoxCPM2 บนคอมพิวเตอร์ของคุณ">
+  <title>Thai Voice Lab — สตูดิโอเสียงบนเครื่องคุณ</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Crect width='50' height='50' rx='14' fill='%23d4f87a'/%3E%3Cpath d='M15 21v8m7-16v24m7-20v16m7-11v6' stroke='%23111719' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css"><script defer src="/static/app.js"></script>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="i-wave" viewBox="0 0 24 24"><path d="M4 9v6m4-10v14m4-17v20m4-17v14m4-10v6"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.7 6.3L21 12l-6.3 2.7L12 21l-2.7-6.3L3 12l6.3-2.7L12 3Z"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-4 4 4-4 4 4M4 15v5h16v-5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v13m-4-4 4 4 4-4M4 16v5h16v-5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 8 3v6c0 6-8 11-8 11S4 17 4 11V5l8-3Z"/><path d="m8 11 3 3 5-5"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14m6-14v14"/></symbol>
+</defs></svg>
+<div class="workspace">
+  <header class="topbar">
+    <a class="wordmark" href="#studio"><span class="brand-mark"><svg><use href="#i-wave"/></svg></span>thai voice <span>lab</span></a>
+    <nav class="main-nav" aria-label="เมนูหลัก"><button class="active" data-view="studio">สร้างเสียง</button><button data-view="history">ประวัติ</button><button data-view="skill">ใช้กับ AI <span class="nav-badge">SKILL</span></button></nav>
+    <div class="local-status" id="connection"><span class="status-dot"></span><span>กำลังเชื่อมต่อ</span></div>
+  </header>
+  <main>
+    <div class="page-heading"><div><div class="eyebrow">THAI VOICE LAB</div><h1>สร้างเสียงไทย ในแบบของคุณ</h1><p>พิมพ์ข้อความ เลือกเสียง แล้วฟังได้เลย ทุกอย่างทำงานบนเครื่องคุณ</p></div><span class="model-pill"><svg><use href="#i-wave"/></svg> VoxCPM2 <span>LOCAL MODEL</span></span></div>
+    <section id="studio-view">
+      <div class="studio-grid">
+        <section class="panel editor-panel" aria-labelledby="editor-title">
+          <div class="panel-heading"><div><span class="section-kicker">ข้อความของคุณ</span><h2 id="editor-title">ข้อความที่อยากให้พูด</h2></div><span class="language-tag">TH / EN</span></div>
+          <div class="editor-wrap"><label for="text" class="sr-only">ข้อความที่ต้องการสร้างเสียง</label><textarea id="text" maxlength="2000" spellcheck="false" placeholder="พิมพ์เรื่องราวที่อยากเล่า…">ยินดีต้อนรับเข้าสู่ thai voice lab สร้างเสียงได้ฟรี ไม่จำกัด บนคอมพิวเตอร์เราเอง</textarea><div class="editor-foot"><button id="sample-text" class="text-button">ใช้ข้อความตัวอย่าง</button><span id="char-count">0 / 2,000 ตัวอักษร</span></div></div>
+          <details class="advanced-settings"><summary>ปรับความเร็วและคุณภาพ <span>ไม่จำเป็นต้องตั้งค่า</span></summary>          <div class="settings"><div class="setting"><label for="speed">ความเร็วเสียง <output id="speed-value">1.00×</output></label><input id="speed" type="range" min="0.75" max="1.30" step="0.05" value="1"><div class="range-labels"><span>ช้าลง</span><span>เร็วขึ้น</span></div></div><div class="setting"><label for="quality">คุณภาพการสร้าง</label><select id="quality"><option value="8">รวดเร็ว</option><option value="12" selected>สมดุล · แนะนำ</option><option value="24">ละเอียด</option></select><span class="setting-note">ละเอียดขึ้น ใช้เวลาสร้างนานขึ้น</span></div></div>
+</details>
+          <div class="selected-strip"><div class="mini-avatar" id="selected-avatar"><svg><use href="#i-mic"/></svg></div><div><span class="muted small">เสียงที่เลือก</span><strong id="selected-name">กำลังโหลดเสียง…</strong></div><span class="small muted" id="selected-type">—</span></div>
+          <button id="generate" class="generate-button" disabled><svg><use href="#i-spark"/></svg><span>สร้างเสียงพูด</span><kbd>⌘ Enter</kbd></button>
+          <div class="editor-note"><svg><use href="#i-shield"/></svg><span>ประมวลผลบนเครื่องคุณ · ไม่มีเครดิต · ไม่มีค่าบริการ API</span></div>
+          <div id="job-progress" class="job-progress" hidden><div><span class="spinner"></span><strong id="job-message">กำลังเตรียมเสียง</strong><span id="job-time">0:00</span></div><progress id="progress-bar" max="1" value="0"></progress><p id="progress-note">งานแรกต้องโหลดโมเดลเข้า RAM ก่อน ความเร็วขึ้นอยู่กับเครื่องและความยาวข้อความ</p></div>
+        </section>
+        <section class="panel voices-panel" aria-labelledby="voice-title"><div class="panel-heading"><div><span class="section-kicker">เสียงอ้างอิง</span><h2 id="voice-title">เลือกเสียง</h2></div><span class="count-pill" id="voice-count">0 เสียง</span></div>
+          <div class="voice-tabs" role="group" aria-label="ประเภทเสียง"><button class="active" data-filter="all">เสียงทั้งหมด</button><button data-filter="public">ตัวอย่าง CC0</button><button data-filter="custom">เสียงของฉัน</button></div>
+          <div class="voice-grid" id="voice-list"><div class="empty-library">กำลังโหลดคลังเสียง…</div></div>
+          <label class="upload-zone" id="drop-zone" for="audio-file"><span class="upload-icon"><svg><use href="#i-upload"/></svg></span><span><strong id="upload-title">หรือใช้เสียงของคุณเอง</strong><span class="upload-sub" id="upload-sub">ลากไฟล์มาวาง หรือ <u>เลือกไฟล์เสียง</u></span><span class="file-spec">WAV, MP3, M4A, FLAC, OGG, WebM · 3–30 วิ · ไม่เกิน 20 MB</span></span><input id="audio-file" type="file" accept="audio/*,.wav,.mp3,.m4a,.flac,.ogg,.webm"></label>
+          <p class="library-note">ใช้เสียงพูดคนเดียวที่ชัดเจน ระบบใช้ 12 วินาทีแรกเป็นเสียงอ้างอิง <button class="text-button about-button">แหล่งที่มาและสิทธิ์ใช้งาน</button></p>
+        </section>
+      </div>
+      <section class="panel output-panel" id="output-panel" aria-labelledby="output-title"><div class="output-label"><svg><use href="#i-wave"/></svg><div><h2 id="output-title">เสียงของคุณจะอยู่ตรงนี้</h2><p id="output-meta">เลือกเสียง ใส่ข้อความ แล้วเริ่มสร้างได้เลย</p></div></div><div id="output-empty" class="empty-wave" aria-hidden="true"></div><div id="output-content" hidden><canvas id="waveform" height="60" aria-label="รูปคลื่นเสียงที่สร้าง"></canvas><audio id="result-audio" controls preload="metadata"></audio><a id="download" class="download-button" download><svg><use href="#i-download"/></svg>ดาวน์โหลด WAV</a></div></section>
+      <div class="bottom-notes"><span><svg><use href="#i-shield"/></svg>ข้อความและเสียงที่สร้างเก็บอยู่บนเครื่องนี้</span><span>Made for your voice. Powered by VoxCPM2.</span></div>
+    </section>
+    <section id="history-view" hidden><div class="panel history-panel"><div class="panel-heading"><div><span class="section-kicker">YOUR LOCAL COLLECTION</span><h2>ประวัติการสร้างเสียง</h2></div><button id="refresh-history" class="secondary-button">รีเฟรช</button></div><div id="history-list"></div></div></section>
+    <section id="skill-view" hidden>
+      <div class="skill-intro"><span class="section-kicker">THAI VOICE LAB SKILL</span><h2>แค่บอก AI ว่าอยากให้พูดอะไร</h2><p>ให้ Codex หรือ Claude Code สร้างเสียงให้คุณจากแชต ใช้โมเดลในเครื่องตัวเดียวกับหน้าเว็บนี้</p></div>
+      <div class="skill-layout">
+        <section class="panel install-panel" aria-labelledby="install-title"><div class="panel-heading"><div><h2 id="install-title">ติดตั้งบนเครื่องของคุณ</h2><p>สำหรับลูกค้าใหม่ · คัดลอกไปวางใน AI ที่คุณใช้</p></div></div>
+          <div class="agent-tabs" role="group" aria-label="เลือก AI"><button class="active" data-agent="codex">Codex</button><button data-agent="claude">Claude Code</button></div>
+          <div class="prompt-box"><label for="install-prompt" class="sr-only">ข้อความสั่งติดตั้งสกิล</label><textarea id="install-prompt" readonly>กำลังโหลดวิธีติดตั้ง…</textarea></div>
+          <button id="copy-install" class="primary-button" disabled>คัดลอกคำสั่งติดตั้ง</button>
+          <p class="guide-note">ใช้ Codex หรือ Claude Code ที่รันบนเครื่องลูกค้า ครั้งแรกต้องมีอินเทอร์เน็ตสำหรับติดตั้งและโหลดโมเดล หากยังไม่พบสกิลหลังติดตั้ง ให้เปิดเซสชันใหม่</p>
+          <details class="manual-install"><summary>ดาวน์โหลดไปติดตั้งเอง</summary><p>ไฟล์ ZIP มีสกิล ตัวช่วยติดตั้ง และคู่มือ หากเริ่มจากเครื่องใหม่ ให้ใช้คำสั่งด้านบนเพื่อโหลดโปรแกรมจาก GitHub ก่อน ไม่รวมโมเดลหรือไฟล์เสียงส่วนตัว</p><a class="secondary-button" id="skill-download" href="/static/downloads/thai-voice-lab-skill.zip" download><svg><use href="#i-download"/></svg>ดาวน์โหลดสกิล .zip</a></details>
+        </section>
+        <section class="examples-panel" aria-labelledby="examples-title"><div class="panel-heading"><div><h2 id="examples-title">ติดตั้งแล้ว ลองสั่งแบบนี้</h2><p>แก้ข้อความ ชื่อเสียง หรือชื่อไฟล์ให้เป็นของคุณ</p></div></div>
+          <article class="panel example-card"><div class="example-title"><h3>สร้างเสียงจากข้อความ</h3><span>Codex</span></div><p id="example-codex"></p><button class="copy-example text-button" data-example="codex">คัดลอกตัวอย่าง</button></article>
+          <article class="panel example-card"><div class="example-title"><h3>อ่านสคริปต์เป็นไฟล์เสียง</h3><span>Claude Code</span></div><p id="example-claude"></p><button class="copy-example text-button" data-example="claude">คัดลอกตัวอย่าง</button></article>
+          <article class="panel example-card"><div class="example-title"><h3>ใช้เสียงอ้างอิงของคุณ</h3><span>ใช้ได้ทั้งคู่</span></div><p id="example-reference"></p><button class="copy-example text-button" data-example="reference">คัดลอกตัวอย่าง</button></article>
+        </section>
+      </div>
+      <div class="skill-footnote"><svg><use href="#i-shield"/></svg><p>ตัวช่วย AI ส่งงานมายังเครื่องคุณ เสียงสร้างด้วย VoxCPM2 ในเครื่อง ไม่มีค่าบริการสร้างเสียง API ส่วนค่าบริการของ Codex หรือ Claude ขึ้นอยู่กับแพ็กเกจที่ใช้</p></div>
+    </section>
+  </main>
+  <footer><span>Thai Voice Lab · VoxCPM2</span><button class="text-button about-button">แหล่งเสียงและสิทธิ์ใช้งาน</button><span>สร้างบนเครื่องคุณ เก็บบนเครื่องคุณ</span></footer>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="about-dialog"><div class="dialog-head"><h2>เสียงตัวอย่างและสิทธิ์ใช้งาน</h2><button id="close-about" aria-label="ปิด">×</button></div><p>เสียงตัวอย่างภาษาไทย 8 เสียงมาจากผู้พูดคนละคนใน Common Voice Corpus 17.0 ซึ่งระบุเป็น <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noreferrer">CC0 1.0 (Public Domain)</a> ผ่านคลังสำเนาสาธารณะบน Hugging Face ชื่อในแอปเป็นหมายเลขตัวอย่าง ไม่ใช่ชื่อจริงของผู้พูด</p><p>CC0 ครอบคลุมลิขสิทธิ์ไฟล์ ไม่ได้ให้สิทธิ์แอบอ้างตัวบุคคล ใช้ไฟล์ของตนเองหรือเสียงที่ได้รับอนุญาต และอย่าใช้เสียงสังเคราะห์เพื่อหลอกว่าเป็นบุคคลจริง</p><p>เสียงที่คุณเพิ่มเองไม่ได้รวมอยู่ในชุด CC0 ส่วน VoxCPM2 ใช้สัญญาอนุญาตของโมเดลเอง</p><div id="source-list"></div><p class="muted small">ไฟล์อัปโหลด ผลงาน และประวัติเก็บในโฟลเดอร์ data ของโปรเจกต์ ไม่ส่งไปยังบริการสร้างเสียงภายนอก คุณภาพการออกเสียงและความคล้ายขึ้นอยู่กับเสียงอ้างอิงและข้อความ</p></dialog>
+</body></html>

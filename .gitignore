@@ -1,0 +1,21 @@
+__pycache__/
+.pytest_cache/
+.venv/
+.firecrawl/
+.env
+.env.*
+!.env.example
+.runtime.json
+*.log
+.DS_Store
+# Every runtime record, upload, personal reference and generated output is private.
+/data/
+# Skills configured on one computer never belong in the distribution.
+**/local.json
+# Historical local implementation evidence contains machine-specific paths.
+/docs/design.md
+/docs/review-notes.md
+/docs/verification.json
+/docs/skill-ui-verification.md
+/docs/skill-and-light-ui-plan.md
+/docs/superpowers/
